@@ -18,7 +18,6 @@
    chapter05
    chapter06
    chapter07
-   chapter08
 
 Indices and tables
 ==================
