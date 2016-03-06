@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ยินดีต้อนรับการอบรม Openstack (Liberty)
-===================================
+ยินดีต้อนรับการอบรม Openstack Liberty
+=====================================
 
 สารบัญ:
 
@@ -19,6 +19,7 @@
    chapter06
    chapter07
    chapter08
+
 Indices and tables
 ==================
 

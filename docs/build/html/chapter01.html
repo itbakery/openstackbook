@@ -83,11 +83,11 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">บทที่ 1 เตรียมความพร้อม</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#kvm">ติดตั้ง kvm</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kvm-qemu">ติดตั้ง KVM(Qemu)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#libvirt-networkmanament">Libvirt NetworkManament</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kvm">ติดตั้ง kvm</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#kvm-qemu">ติดตั้ง KVM(Qemu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#libvirt-networkmanament">Libvirt NetworkManament</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#virtualbox">ติดตั้ง Virtualbox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vagrant-centos7">ติดตั้ง Vagrant รวมกันกับ  CentOS7</a></li>
 </ul>
@@ -98,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chapter05.html">บทที่ 5 การติดตั้ง openstack Commandline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter06.html">บทที่ 6 เรียนรู้การใช้งาน Provision ด้วย Heat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter07.html">บทที่ 7 หลักการทำงานของ Puppet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter08.html">บทที่ 8 การติดตั้ง Swift storage</a></li>
 </ul>
 
             
@@ -153,8 +154,10 @@
 <img alt="_images/kvm-qemu.png" src="_images/kvm-qemu.png" />
 <p>จะแบ่งการติดตั้งเป็น 2 ส่วนได้แต่ส่วนที่เป็น kernel module เพื่อใช้เป็นส่วนสร้าง driver ให้แก่ cpu
 และส่วนของ userspace เพื่อติดต่อกับผู้ใช้งาน</p>
+</div>
+</div>
 <div class="section" id="kvm-qemu">
-<h3>ติดตั้ง KVM(Qemu)<a class="headerlink" href="#kvm-qemu" title="Permalink to this headline">¶</a></h3>
+<h1>ติดตั้ง KVM(Qemu)<a class="headerlink" href="#kvm-qemu" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -183,7 +186,7 @@ lsmod <span class="p">|</span> grep kvm
 <img alt="_images/virtmanager.png" src="_images/virtmanager.png" />
 </div>
 <div class="section" id="libvirt-networkmanament">
-<h3>Libvirt NetworkManament<a class="headerlink" href="#libvirt-networkmanament" title="Permalink to this headline">¶</a></h3>
+<h1>Libvirt NetworkManament<a class="headerlink" href="#libvirt-networkmanament" title="Permalink to this headline">¶</a></h1>
 <img alt="_images/virtmanager-detail.png" src="_images/virtmanager-detail.png" />
 <p>Libvirt สร้าง virtual network switch (virbr0) เมื่อมีการ start service ของ libvirtd
 และเมื่อมีการสร้าง vm จะมาเกาะอยู่กับ switch นี้</p>
@@ -233,8 +236,6 @@ FORWARD, OUTPUT และ POSTROUTING. เพิ่ม เติมความ�
 sysctl -p /etc/sysctl.d/99-ipforward.conf
 </pre></div>
 </td></tr></table></div>
-</div>
-</div>
 <div class="section" id="virtualbox">
 <h2>ติดตั้ง Virtualbox<a class="headerlink" href="#virtualbox" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -272,11 +273,14 @@ reboot
 <h2>ติดตั้ง Vagrant รวมกันกับ  CentOS7<a class="headerlink" href="#vagrant-centos7" title="Permalink to this headline">¶</a></h2>
 <p>(<a class="reference external" href="https://www.vagrantup.com/">https://www.vagrantup.com/</a>)</p>
 <img alt="_images/vagrant.png" src="_images/vagrant.png" />
-<ul class="simple">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>เราใช้ vagrant ในการสร้าง vm หรือเรียกว่า vm providers  โดยสามารถใช้งานร่วมกันหลายระบบโดยเราสามารถใช้ให้ vagrant สร้าง vm ในขนาที่เราต้องการบนชั้นของ hypervisor</li>
 <li>เราใช้ vagrant เพื่อให้สร้าง network เพื่อสร้างการเชื่อมต่อระหว่าง vm</li>
 <li>เราใช้ vagrant ให้มีการ provisioning  แบบที่เราต้องการได้แก่ Shell scripts, File, Puppet, Chef, Puppet, Ansible, Salt, Docker</li>
 </ul>
+</div>
 <img alt="_images/vagrant-flow.png" src="_images/vagrant-flow.png" />
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
