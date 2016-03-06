@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>บทที่ 1 เตรียมความพร้อม &mdash; Training Openstack Liberty 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Training Openstack Liberty 1 documentation" href="index.html"/>
+        <link rel="next" title="บทที่ 2 Docker Container" href="chapter02.html"/>
+        <link rel="prev" title="ยินดีต้อนรับการอบรม Openstack Liberty" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Training Openstack Liberty
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">บทที่ 1 เตรียมความพร้อม</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kvm">ติดตั้ง kvm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kvm-qemu">ติดตั้ง KVM(Qemu)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libvirt-networkmanament">Libvirt NetworkManament</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#virtualbox">ติดตั้ง Virtualbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vagrant-centos7">ติดตั้ง Vagrant รวมกันกับ  CentOS7</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html">บทที่ 2 Docker Container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter03.html">บทที่ 3 ติดตั้ง Openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter04.html">บทที่ 4 การใช้งาน Openstack Administration (GUI MODE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter05.html">บทที่ 5 การติดตั้ง openstack Commandline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter06.html">บทที่ 6 เรียนรู้การใช้งาน Provision ด้วย Heat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter07.html">บทที่ 7 หลักการทำงานของ Puppet</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Training Openstack Liberty</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>บทที่ 1 เตรียมความพร้อม</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/chapter01.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>บทที่ 1 เตรียมความพร้อม<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ติดตั้งโปรแกรม</p>
+</div>
+<div class="section" id="kvm">
+<h2>ติดตั้ง kvm<a class="headerlink" href="#kvm" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/kvm-qemu.png" src="_images/kvm-qemu.png" />
+<p>จะแบ่งการติดตั้งเป็น 2 ส่วนได้แต่ส่วนที่เป็น kernel module เพื่อใช้เป็นส่วนสร้าง driver ให้แก่ cpu
+และส่วนของ userspace เพื่อติดต่อกับผู้ใช้งาน</p>
+<div class="section" id="kvm-qemu">
+<h3>ติดตั้ง KVM(Qemu)<a class="headerlink" href="#kvm-qemu" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="m">1</span> ตรวจสอบว่า cpu สนับสนุนเทคโนโลยี virtualization หรือไม่
+
+egrep <span class="s1">&#39;(vmx|svm)&#39;</span> --color<span class="o">=</span>always /proc/cpuinfo
+
+<span class="m">2</span> Install dependencies
+
+yum -y install kvm virt-manager libvirt libvirt-devel virt-install qemu-kvm xauth
+yum -y install libguestfs-tools dejavu-lgc-sans-fonts virt-viewer bridge-utils
+systemctl start libvirtd
+systemctl <span class="nb">enable</span> libvirtd
+lsmod <span class="p">|</span> grep kvm
+</pre></div>
+</td></tr></table></div>
+<p>เครื่อง kvm host นี้จะทำหน้าที่เป็น router เพื่อจะroute traffice เข้าออก interface และมี GUI
+ที่ใช้สำหรับการสร้างและบริหารจัดการ vm</p>
+<img alt="_images/virtmanager.png" src="_images/virtmanager.png" />
+</div>
+<div class="section" id="libvirt-networkmanament">
+<h3>Libvirt NetworkManament<a class="headerlink" href="#libvirt-networkmanament" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/virtmanager-detail.png" src="_images/virtmanager-detail.png" />
+<p>Libvirt สร้าง virtual network switch (virbr0) เมื่อมีการ start service ของ libvirtd
+และเมื่อมีการสร้าง vm จะมาเกาะอยู่กับ switch นี้</p>
+<img alt="_images/virtmanager-switch.png" src="_images/virtmanager-switch.png" />
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span>ตรวจสอบ ip
+$ ip addr show virbr0
+6: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="m">1500</span> qdisc noqueue state DOWN
+    link/ether 52:54:00:90:cf:a9 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+</pre></div>
+</td></tr></table></div>
+<p><strong>NAT Network</strong></p>
+<p>เมื่อเราติดตั้ง libvirt จะได้ network ที่อยู่ในรูปแบบของ NAT ให้แก่ virtual machines และมีชื่อว่า
+default โดย เราไม่สามารถสื่อสารตรงไปยัง vm จาก network ภายนอก</p>
+<img alt="_images/virtmanager-nat.png" src="_images/virtmanager-nat.png" />
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>virsh net-list --all
+Name                 State      Autostart
+-----------------------------------------
+default              active     yes
+</pre></div>
+</td></tr></table></div>
+<p>และจะเห็นว่ามี bridge (switch)</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>brctl show
+bridge    name      bridge id               STP enabled        interfaces
+virbr0              8000.52540090cfa9       yes                      virbr0-nic
+</pre></div>
+</td></tr></table></div>
+<p><strong>DNS &amp; DHCP  Service</strong></p>
+<p>ในแต่ละ network switch สามารถมี service DNS, DHCP</p>
+<img alt="_images/virtmanager-dns.png" src="_images/virtmanager-dns.png" />
+<p>Libvirt จะเพิ่ม iptables เพื่อควบคุม traffice ที่เข้าออก vm ผ่านทาง virbr0 ได้แก่ INPUT,
+FORWARD, OUTPUT และ POSTROUTING. เพิ่ม เติมความสามารถในการ forward ข้าม interface
+ด้วยการ เพิ่ม net.ipv4.ip_forward = 1 ให้แก่ kernel</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;net.ipv4.ip_forward = 1&quot;</span><span class="p">|</span>  tee /etc/sysctl.d/99-ipforward.conf
+sysctl -p /etc/sysctl.d/99-ipforward.conf
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="virtualbox">
+<h2>ติดตั้ง Virtualbox<a class="headerlink" href="#virtualbox" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>su -
+<span class="c1"># Add repo</span>
+<span class="nb">cd</span> /etc/yum.repos.d/
+wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+
+<span class="c1"># Install epel-repo</span>
+yum install epel-release
+yum groupinstall <span class="s2">&quot;Development Tools&quot;</span>
+yum install binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
+
+yum install VirtualBox-5.0
+service vboxdrv setup
+usermod -a -G vboxusers <span class="sb">`</span>whoami<span class="sb">`</span>
+reboot
+</pre></div>
+</td></tr></table></div>
+<img alt="_images/virtmanager.png" src="_images/virtmanager.png" />
+</div>
+<div class="section" id="vagrant-centos7">
+<h2>ติดตั้ง Vagrant รวมกันกับ  CentOS7<a class="headerlink" href="#vagrant-centos7" title="Permalink to this headline">¶</a></h2>
+<p>(<a class="reference external" href="https://www.vagrantup.com/">https://www.vagrantup.com/</a>)</p>
+<img alt="_images/vagrant.png" src="_images/vagrant.png" />
+<ul class="simple">
+<li>เราใช้ vagrant ในการสร้าง vm หรือเรียกว่า vm providers  โดยสามารถใช้งานร่วมกันหลายระบบโดยเราสามารถใช้ให้ vagrant สร้าง vm ในขนาที่เราต้องการบนชั้นของ hypervisor</li>
+<li>เราใช้ vagrant เพื่อให้สร้าง network เพื่อสร้างการเชื่อมต่อระหว่าง vm</li>
+<li>เราใช้ vagrant ให้มีการ provisioning  แบบที่เราต้องการได้แก่ Shell scripts, File, Puppet, Chef, Puppet, Ansible, Salt, Docker</li>
+</ul>
+<img alt="_images/vagrant-flow.png" src="_images/vagrant-flow.png" />
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># ติดตั้ง Ruby, Ruby Gem</span>
+
+yum -y install ruby rubygems ruby-devel
+yum -y install kvm qemu-kmv python-virtinst libvirt virt-install bridge-utils
+yum -y install libvirt-devel libxslt-devel libxml2-devel virt-manager libvirt
+yum -y install libvirt-python  qemu-img
+
+systemctl start libvirtd.service
+systemctl <span class="nb">enable</span> libvirtd.service
+
+<span class="c1"># ติดตั้ง Dependencies</span>
+gem install json_pure
+gem install nokogiri
+gem install ruby-libvirt
+
+yum -y install gcc gcc-c++ make patch libffi-devel openssl-devel zlib zlib-devel
+yum -y install readline readline-devel ncurses-devel libxml2-devel libxslt-devel
+yum -y install ruby ruby-devel rubygems rubygems-devel
+
+wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
+yum install -y vagrant_1.8.1_x86_64.rpm
+
+<span class="c1"># ติดตั้ง plugin ชื่อ &#39;vagrant-libvirt&#39;</span>
+
+vagrant plugin install vagrant-libvirt
+
+<span class="c1"># Download Vagrant box (image) สำหรับ libvirt</span>
+
+wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1601_01.LibVirt.box
+
+<span class="c1"># Download Vagrant box (image) สำหรับ Virtmanager</span>
+
+wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1601_01.VirtualBox.box
+</pre></div>
+</td></tr></table></div>
+<p>** การเพิ่ม box Vagrant **</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># เพิ่ม libvirt box ให้กับระบบ</span>
+vagrant box add CentOS7-libvirt CentOS-7-x86_64-Vagrant-1601_01.LibVirt.box
+
+<span class="c1"># เพิ่ม libvirt box ให้กับระบบ</span>
+vagrant box add CentOS7-virtualbox CentOS-7-x86_64-Vagrant-1601_01.VirtualBox.box
+
+<span class="c1"># ตรวจสอบ box ในระบบ</span>
+vagrant box list
+</pre></div>
+</td></tr></table></div>
+<p>** การสร้าง vm ด้วย vagrant **</p>
+<p>คำสั่ง vagrant ที่ใช้สร้าง vm ไม่จำเป็นต้องเป็น root สามารถใช้งาน ใน user ปรกติได้</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>vagrant box add <span class="o">{</span>boxname<span class="o">}</span> <span class="o">{</span>url<span class="o">}</span>
+vagrant init <span class="o">{</span>boxname<span class="o">}</span>               <span class="c1"># จะได้ ไฟล์ชื่อ Vagrantfile</span>
+vagrant up
+</pre></div>
+</td></tr></table></div>
+<p>ตัวอย่าง</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>mkdir project1
+<span class="nb">cd</span> project
+vagrant init CentOS7-libvirt
+vagrant up
+vagrant ssh
+</pre></div>
+</td></tr></table></div>
+<p><strong>State หรือ สถานะของ Vagrant</strong></p>
+<p>การใช้งานคำสั่ง vagrant จะสามารถตามด้วยชื่อของ state เพื่อให้ผลตามที่เราต้องการ เช่น</p>
+<ul class="simple">
+<li>vagrant up เพื่อต้องการที่สร้าง instance</li>
+<li>vagrant halt เพื่อต้องการ หยุด</li>
+<li>vagrant destroy ต้องการทำลายทิ้ง</li>
+<li>vagrant reload นำกลับมาทำงานอีกครั้ง</li>
+</ul>
+<img alt="_images/vagrant-states.jpg" src="_images/vagrant-states.jpg" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter02.html" class="btn btn-neutral float-right" title="บทที่ 2 Docker Container" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="ยินดีต้อนรับการอบรม Openstack Liberty" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sawangpong Muadphet, CEO ITbakery.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

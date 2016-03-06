@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>บทที่ 3 ติดตั้ง Openstack &mdash; Training Openstack Liberty 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Training Openstack Liberty 1 documentation" href="index.html"/>
+        <link rel="next" title="บทที่ 4 การใช้งาน Openstack Administration (GUI MODE)" href="chapter04.html"/>
+        <link rel="prev" title="บทที่ 2 Docker Container" href="chapter02.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Training Openstack Liberty
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="chapter01.html">บทที่ 1 เตรียมความพร้อม</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html">บทที่ 2 Docker Container</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">บทที่ 3 ติดตั้ง Openstack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">3.1 เตรียมพร้อมเอกสาร</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openstack-rdo-single-node-allinone">3.2 ติดตั้ง Openstack ด้วย RDO (Single Node allinone)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openstack-rdo-multinode">3.3 ติดตั้ง Openstack ด้วย RDO Multinode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter04.html">บทที่ 4 การใช้งาน Openstack Administration (GUI MODE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter05.html">บทที่ 5 การติดตั้ง openstack Commandline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter06.html">บทที่ 6 เรียนรู้การใช้งาน Provision ด้วย Heat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter07.html">บทที่ 7 หลักการทำงานของ Puppet</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Training Openstack Liberty</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>บทที่ 3 ติดตั้ง Openstack</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/chapter03.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="openstack">
+<h1>บทที่ 3 ติดตั้ง Openstack<a class="headerlink" href="#openstack" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>3.1 เตรียมพร้อมเอกสาร<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>pip install tox
+git clone https://github.com/openstack/openstack-manuals
+<span class="nb">cd</span> openstack-manuals
+tox -e docs
+ls doc
+admin-guide-cloud  arch-design-draft  common            contributor-guide  image-guide    networking-guide  user-guide
+arch-design        cli-reference      config-reference  glossary           install-guide  pom.xml           user-guide-admin
+
+<span class="nb">cd</span> doc/install-guide/build-rdo/htmldoc/install-guide/build-rdo/html
+python -m SimpleHTTPServer
+</pre></div>
+</td></tr></table></div>
+<p>เปิด brower ไปยัง port 8000</p>
+<img alt="_images/openstack-doc.png" src="_images/openstack-doc.png" />
+</div>
+<div class="section" id="openstack-rdo-single-node-allinone">
+<h2>3.2 ติดตั้ง Openstack ด้วย RDO (Single Node allinone)<a class="headerlink" href="#openstack-rdo-single-node-allinone" title="Permalink to this headline">¶</a></h2>
+<p>สร้าง Project Folder</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>mkdir ~/Vagrant
+<span class="nb">cd</span> ~/Vagrant
+touch Vagrantfile
+</pre></div>
+</td></tr></table></div>
+<p>Vagrantfile</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+
+Vagrant.configure<span class="o">(</span>2<span class="o">)</span> <span class="k">do</span> <span class="p">|</span>config<span class="p">|</span>
+  config.vm.box <span class="o">=</span> <span class="s2">&quot;centos/7&quot;</span>
+  config.vm.define :rdo <span class="k">do</span> <span class="p">|</span>c<span class="p">|</span>
+    c.vm.hostname <span class="o">=</span>  <span class="s2">&quot;rdo.example.com&quot;</span>
+    c.vm.provider :libvirt <span class="k">do</span> <span class="p">|</span>d<span class="p">|</span>
+        d.memory <span class="o">=</span> 4096
+        d.cpus <span class="o">=</span> 2
+        d.nested <span class="o">=</span> <span class="nb">true</span>
+    end
+  end
+ end
+</pre></div>
+</td></tr></table></div>
+<p>vagrant up</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>vagrant plugin install vagrant-libvirt
+vagrant up --provider libvirt
+vagrant ssh
+sudo su -
+</pre></div>
+</td></tr></table></div>
+<p>vagrant user มีสิทธิ sudo และ มี password  vagrant หากไม่การกำหนด private network จะทำให้
+vm ที่สร้างขึ้นมานั้นจะได้รับค่าเป็น Default network เสมอ และนอกจากนั้น vagrant จะทำการ mount
+file system ภายในและภายนอก <code class="docutils literal"><span class="pre">Rsyncing</span> <span class="pre">folder:</span> <span class="pre">/home/admin/Vagrant/rdo/</span> <span class="pre">=&gt;</span> <span class="pre">/home/vagrant/sync</span></code></p>
+<p>ตั้งค่า selinux ให้เป็น permissive</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>yum install vim
+setenforce 0
+vim /etc/sysconfig/selinux
+
+<span class="nv">SELINUX</span><span class="o">=</span>permissive
+</pre></div>
+</td></tr></table></div>
+<p>กำหนดให้ใช้ network แทน NetworkManager</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>systemctl start network
+systemctl <span class="nb">enable</span> network
+systemctl stop NetworkManager
+systemctl disable NetworkManager
+</pre></div>
+</td></tr></table></div>
+<p>ติดตั้ง Repo</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span>yum install -y epel-release
+yum install -y https://www.rdoproject.org/repos/rdo-release.rpm-y https://www.rdoproject.org/repos/rdo-release.rpm
+yum install openstack-packstack
+
+packstack --gen-answer-file  packstack-answerfile.txt
+
+packstack --answer-file packstack-answerfile.txt
+</pre></div>
+</td></tr></table></div>
+<p>การปรับแต่ค่าใน answerfile จะใช้คำสั่ง <code class="docutils literal"><span class="pre">grep</span> <span class="pre">-n</span>&nbsp; <span class="pre">[keyword]</span> <span class="pre">file</span></code> เพื่อสะดวกในการดึงข้อมูล
+และใช้ <code class="docutils literal"><span class="pre">vim</span>&nbsp; <span class="pre">file</span> <span class="pre">+[หมายเลขบรรทัด]</span></code> เพื่อให้ vim เปิด file ตามที่ต้องการ</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span>wc -l packstack-answerfile.txt
+grep -n INSTALL packstack-answerfile.txt
+grep -n HOST packstack-answerfile.txt
+grep -n CINDER packstack-answerfile.txt
+grep -n HEAT packstack-answerfile.txt
+grep -n NTP packstack-answerfile.txt
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>NTP ใช้</dt>
+<dd><ul class="first last simple">
+<li>3.th.pool.ntp.org3.th.pool.ntp.org</li>
+<li>0.asia.pool.ntp.org0.asia.pool.ntp.org</li>
+<li>2.asia.pool.ntp.org2.asia.pool.ntp.org</li>
+</ul>
+</dd>
+</dl>
+</div>
+<p><strong>หัวใจสำคัญคือ puppet module</strong></p>
+</div>
+<div class="section" id="openstack-rdo-multinode">
+<h2>3.3 ติดตั้ง Openstack ด้วย RDO Multinode<a class="headerlink" href="#openstack-rdo-multinode" title="Permalink to this headline">¶</a></h2>
+<p>่ทดสอบด้วยการสร้าง ด้วย rdo ก่อนจะทำบนเครื่องจริง โดย มีarchitecture</p>
+<img alt="_images/vagrant-setup.png" src="_images/vagrant-setup.png" />
+<p>สร้างระบบด้วย vagrant file ด้วยการสร้าง ไฟล์ ชื่อ Vagrantfile และ password.sh</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>mkdir project
+<span class="nb">cd</span> project
+touch Vagrantfile
+</pre></div>
+</td></tr></table></div>
+<p>เนื้อหาใน Vagrantfile เป็นการสร้าง node ขึ้นมาจำนวน 3 โหนด คือ controller, compute1, network</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+<span class="nv">MGN_NETWORK</span><span class="o">=</span><span class="s2">&quot;10.0.0&quot;</span>
+<span class="nv">TUNNEL_NETWORK</span><span class="o">=</span><span class="s2">&quot;10.0.1&quot;</span>
+<span class="nv">EXTERNAL_NETWORK</span><span class="o">=</span><span class="s2">&quot;203.0.113&quot;</span>
+
+Vagrant.configure<span class="o">(</span>2<span class="o">)</span> <span class="k">do</span> <span class="p">|</span>config<span class="p">|</span>
+  config.vm.box <span class="o">=</span> <span class="s2">&quot;centos/7&quot;</span>
+  <span class="c1"># controller vm</span>
+  config.vm.define :controller <span class="k">do</span> <span class="p">|</span>c<span class="p">|</span>
+      c.vm.hostname <span class="o">=</span>  <span class="s2">&quot;controller.example.com&quot;</span>
+      c.vm.provider :libvirt <span class="k">do</span> <span class="p">|</span>d<span class="p">|</span>
+              d.memory <span class="o">=</span> 1024
+              d.cpus <span class="o">=</span> 1
+              d.nested <span class="o">=</span> <span class="nb">true</span>
+      end
+      c.vm.synced_folder <span class="s2">&quot;.&quot;</span>, <span class="s2">&quot;/vagrant&quot;</span>, type: <span class="s2">&quot;rsync&quot;</span>
+      <span class="c1">#eth1,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{MGN_NETWORK}.11&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1"># yum update</span>
+      c.vm.provision <span class="s2">&quot;shell&quot;</span>, inline: <span class="s">&lt;&lt;-EOF</span>
+<span class="s">      source /vagrant/password.sh</span>
+<span class="s">      echo root:stack | chpasswd</span>
+<span class="s">      yum -y install epel-release</span>
+<span class="s">      yum -y install http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm</span>
+<span class="s">      yum -y install openstack-selinux</span>
+
+<span class="s">      cat  &lt;&lt;- HOST  &gt;&gt; /etc/hosts</span>
+<span class="s">      10.0.0.11  controller.example.com controller</span>
+<span class="s">      10.0.0.21  network.example.com network</span>
+<span class="s">      10.0.0.31  compute1.example.com compute1</span>
+<span class="s">      HOST</span>
+<span class="s">      EOF</span>
+
+  end
+  <span class="c1">#network vm</span>
+  config.vm.define :network <span class="k">do</span> <span class="p">|</span>c<span class="p">|</span>
+      c.vm.hostname <span class="o">=</span>  <span class="s2">&quot;network.example.com&quot;</span>
+      c.vm.provider :libvirt <span class="k">do</span> <span class="p">|</span>d<span class="p">|</span>
+              d.memory <span class="o">=</span> 1024
+              d.cpus <span class="o">=</span> 1
+              d.nested <span class="o">=</span> <span class="nb">true</span>
+      end
+
+      c.vm.synced_folder <span class="s2">&quot;.&quot;</span>, <span class="s2">&quot;/vagrant&quot;</span>, type: <span class="s2">&quot;rsync&quot;</span>
+      <span class="c1">#eth1,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{MGN_NETWORK}.21&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1">#eth2,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{TUNNEL_NETWORK}.21&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1">#eth3,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{EXTERNAL_NETWORK}.21&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1"># yum update</span>
+      c.vm.provision <span class="s2">&quot;shell&quot;</span>, inline: <span class="s">&lt;&lt;-EOF</span>
+<span class="s">      source /vagrant/password.sh</span>
+<span class="s">      echo root:stack | chpasswd</span>
+<span class="s">      yum -y install epel-release</span>
+<span class="s">      yum -y install http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm</span>
+<span class="s">      yum -y install openstack-selinux</span>
+
+<span class="s">      cat  &lt;&lt;- HOST  &gt;&gt; /etc/hosts</span>
+<span class="s">      10.0.0.11  controller.example.com controller</span>
+<span class="s">      10.0.0.21  network.example.com network</span>
+<span class="s">      10.0.0.31  compute1.example.com compute1</span>
+<span class="s">      HOST</span>
+<span class="s">      EOF</span>
+  end
+  <span class="c1">#compute1 vm</span>
+  config.vm.define :compute1 <span class="k">do</span> <span class="p">|</span>c<span class="p">|</span>
+      c.vm.hostname <span class="o">=</span>  <span class="s2">&quot;compute1.example.com&quot;</span>
+      c.vm.provider :libvirt <span class="k">do</span> <span class="p">|</span>d<span class="p">|</span>
+              d.memory <span class="o">=</span> 1024
+              d.cpus <span class="o">=</span> 1
+              d.nested <span class="o">=</span> <span class="nb">true</span>
+      end
+
+      c.vm.synced_folder <span class="s2">&quot;.&quot;</span>, <span class="s2">&quot;/vagrant&quot;</span>, type: <span class="s2">&quot;rsync&quot;</span>
+      <span class="c1">#eth1,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{MGN_NETWORK}.31&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1">#eth2,  API NETWORK will be the management endpoint</span>
+      c.vm.network :private_network, ip: <span class="s2">&quot;#{TUNNEL_NETWORK}.31&quot;</span>, netmask: <span class="s2">&quot;255.255.255.0&quot;</span>
+
+      <span class="c1"># yum update</span>
+      c.vm.provision <span class="s2">&quot;shell&quot;</span>, inline: <span class="s">&lt;&lt;-EOF</span>
+<span class="s">      source /vagrant/password.sh</span>
+<span class="s">      echo root:stack | chpasswd</span>
+<span class="s">      yum -y install epel-release</span>
+<span class="s">      yum -y install http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm</span>
+<span class="s">      yum -y install openstack-selinux</span>
+<span class="s">      cat  &lt;&lt;- HOST  &gt;&gt; /etc/hosts</span>
+<span class="s">      10.0.0.11  controller.example.com controller</span>
+<span class="s">      10.0.0.21  network.example.com network</span>
+<span class="s">      10.0.0.31  compute1.example.com compute1</span>
+<span class="s">      HOST</span>
+<span class="s">      EOF</span>
+  end
+end
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter04.html" class="btn btn-neutral float-right" title="บทที่ 4 การใช้งาน Openstack Administration (GUI MODE)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter02.html" class="btn btn-neutral" title="บทที่ 2 Docker Container" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sawangpong Muadphet, CEO ITbakery.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
