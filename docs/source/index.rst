@@ -18,10 +18,3 @@
    chapter05
    chapter06
    chapter07
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
